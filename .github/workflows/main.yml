@@ -1,14 +1,12 @@
 name: Sign Shortcut
-on: [workflow_dispatch]
+on: push
 jobs:
   sign:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Convert and Sign Shortcut
-        run: |
-          plutil -convert binary1 Allinone.shortcut
-          shortcuts sign --mode anyone --input Allinone.shortcut --output Signed_Allinone.shortcut
+      - run: plutil -convert binary1 Allinone.shortcut
+      - run: shortcuts sign --mode anyone --input Allinone.shortcut --output Signed_Allinone.shortcut
       - uses: actions/upload-artifact@v4
         with:
           name: SignedShortcut
